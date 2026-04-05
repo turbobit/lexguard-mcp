@@ -4,7 +4,7 @@ Base Repository - 공통 유틸리티 및 상수
 import os
 import logging
 from cachetools import TTLCache
-from typing import Optional
+from typing import Optional, Union
 import re
 import urllib.parse
 
@@ -207,20 +207,26 @@ class BaseLawRepository:
         return normalized
     
     @staticmethod
-    def parse_article_number(article_str: str) -> str:
+    def parse_article_number(article_str: Union[str, int, float, None]) -> str:
         """
         조/항/호 번호를 6자리 숫자로 변환합니다.
         예: '제1조' -> '000100', '제10조의2' -> '001002', '제2항' -> '000200'
         
         Args:
-            article_str: 조/항/호 번호 문자열 (예: '제1조', '제2항', '제10호의2')
+            article_str: 조/항/호 번호 (문자열 또는 JSON에서 온 int/float)
             
         Returns:
             6자리 숫자 문자열 (예: '000100')
         """
-        if not article_str:
+        if article_str is None:
             return "000000"
-        
+        # MCP/JSON에서 조문번호가 int·float로 올 수 있음 (.strip 등 방지)
+        if isinstance(article_str, (int, float)):
+            article_str = str(int(article_str))
+        if not article_str or not str(article_str).strip():
+            return "000000"
+        article_str = str(article_str).strip()
+
         # 숫자 추출
         numbers = re.findall(r'\d+', article_str)
         if not numbers:
