@@ -44,8 +44,8 @@ Thumbs.db
 # Logs
 *.log
 
-# Test files
-test_*.py
+# 루트에만 두는 임시/스크래치 테스트 (tests/ 패키지는 커밋함)
+/test_*.py
 TEST.md
 
 # Local development scripts
