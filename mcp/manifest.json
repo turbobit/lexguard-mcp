@@ -1,0 +1,28 @@
+{
+  "name": "lexguard-mcp",
+  "title": "LexGuard MCP (법실마리)",
+  "description": "한국 법령·판례·법령해석 MCP 서버 (국가법령정보센터 API 연동)",
+  "protocol": "mcp-streamable-http",
+  "capabilities": {
+    "tools": true,
+    "prompts": true,
+    "resources": true
+  },
+  "tools": [
+    { "name": "legal_qa_tool", "description": "통합 법률 QA" },
+    { "name": "law_article_tool", "description": "법령 조문 정밀 조회" },
+    { "name": "document_issue_tool", "description": "계약서·약관 분석" },
+    { "name": "health", "description": "서버·API 키 상태 확인" }
+  ],
+  "prompts": [
+    { "name": "legal_basis_answer", "description": "법령 근거·판례 요지 포함 답변 유도" },
+    { "name": "precedent_summary", "description": "판례 사실·쟁점·판단요지 요약" },
+    { "name": "contract_risk_check", "description": "계약서 위험 조항 점검" },
+    { "name": "legal_qa", "description": "상황 설명 기반 법률 실마리" }
+  ],
+  "resources": {
+    "list": true,
+    "read": true,
+    "uri_schemes": ["law://", "case://", "interpret://"]
+  }
+}

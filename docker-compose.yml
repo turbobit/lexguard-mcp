@@ -1,0 +1,10 @@
+# 친숙한 로컬 설치: docker compose up --build
+services:
+  lexguard-mcp:
+    build: .
+    ports:
+      - "8099:8099"
+    environment:
+      PORT: "8099"
+      LAW_API_KEY: ${LAW_API_KEY:-}
+      LAWGOKR_OC: ${LAWGOKR_OC:-}

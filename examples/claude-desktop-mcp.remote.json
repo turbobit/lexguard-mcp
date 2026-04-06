@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "lexguard-mcp": {
+      "url": "https://lexguard-mcp.onrender.com/mcp"
+    }
+  }
+}

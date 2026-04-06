@@ -14,6 +14,17 @@
 - **Health Check**: [https://lexguard-mcp.onrender.com/health](https://lexguard-mcp.onrender.com/health)
 - **GitHub**: [https://github.com/SeoNaRu/lexguard-mcp](https://github.com/SeoNaRu/lexguard-mcp)
 
+### 빠른 연결 (복붙)
+
+원격 MCP만 쓸 때는 아래 JSON을 클라이언트 설정에 그대로 넣을 수 있습니다.
+
+- Cursor: [`examples/cursor-mcp.remote.json`](examples/cursor-mcp.remote.json) 내용을 `.cursor/mcp.json` 등에 병합
+- Claude Desktop: [`examples/claude-desktop-mcp.remote.json`](examples/claude-desktop-mcp.remote.json) → `claude_desktop_config.json`의 `mcpServers`에 병합
+
+**한 줄 로컬 실행 (Docker):** 저장소 루트에서 `docker compose up --build` 후 MCP URL은 `http://localhost:8099/mcp` 입니다. (API 키: `LAW_API_KEY=발급키 docker compose up --build`)
+
+마켓플레이스·크롤러용 정적 메타: [`mcp/manifest.json`](mcp/manifest.json) · 프롬프트 색인 [`prompts/`](prompts/) · 리소스 URI 안내 [`resources/README.md`](resources/README.md) · Cursor 개발 스킬 [`.cursor/skills/lexguard-mcp-dev/SKILL.md`](.cursor/skills/lexguard-mcp-dev/SKILL.md)
+
 ---
 
 ## Why LexGuard?
@@ -180,14 +191,25 @@ cp .env.example .env   # LAW_API_KEY 설정
 python -m src.main
 ```
 
-### Method 2. Docker
+### Method 2. Docker Compose (권장 · 한 줄에 가깝게)
+
+```bash
+git clone https://github.com/SeoNaRu/lexguard-mcp
+cd lexguard-mcp
+cp .env.example .env   # LAW_API_KEY 편집
+docker compose up --build
+```
+
+브라우저/클라이언트 MCP URL: `http://localhost:8099/mcp` · 헬스: `http://localhost:8099/health`
+
+### Method 3. Docker (run만)
 
 ```bash
 docker build -t lexguard-mcp .
 docker run -p 8099:8099 -e LAW_API_KEY=your_key lexguard-mcp
 ```
 
-### Method 3. Remote MCP (One-click)
+### Method 4. Remote MCP (호스팅 URL)
 
 **Claude Desktop** (`claude_desktop_config.json`)
 
@@ -202,6 +224,8 @@ docker run -p 8099:8099 -e LAW_API_KEY=your_key lexguard-mcp
 ```
 
 **Cursor** (`.cursor/mcp.json`)
+
+[`examples/cursor-mcp.remote.json`](examples/cursor-mcp.remote.json) 파일과 동일:
 
 ```json
 {
@@ -290,7 +314,12 @@ RELOAD=true python -m src.main
 
 ## License
 
-MIT License — 자유롭게 사용하되 출처를 표기해주세요.
+전문은 저장소 루트의 [`LICENSE`](LICENSE) 파일을 따릅니다.
+
+- **사용:** MIT와 동일하게 연구·개인·상업적 이용, 수정·배포·재판매까지 허용됩니다.
+- **판매·유료 제공 시:** 이 소프트웨어를 단독으로 판매하거나, 제품·서비스에 포함해 판매하는 경우 **저작권 표시와 본 라이선스 문구**를 최종 이용자에게 전달되는 자료(문서, 크레딧·라이선스 화면, 패키지 메타데이터 등)에 포함해야 합니다.
+
+본 안내는 요약이며 법적 효력은 `LICENSE` 원문이 우선합니다.
 
 ---
 
